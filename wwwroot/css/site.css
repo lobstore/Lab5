@@ -16,3 +16,54 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Стили для контейнера */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Стили для изображения */
+.img-fluid {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+/* Стили для заголовка */
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Стили для описания */
+p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Стили для списка контактов */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+    /* Стили для элементов списка контактов */
+    ul li {
+        margin-bottom: 10px;
+    }
+
+/* Стили для ссылок */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+    /* Стили для ссылок при наведении */
+    a:hover {
+        text-decoration: underline;
+    }
