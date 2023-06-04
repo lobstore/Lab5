@@ -30,7 +30,7 @@ namespace Lab5
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.Run("http://0.0.0.0:7891");
+            app.Run();
         }
 
     }
