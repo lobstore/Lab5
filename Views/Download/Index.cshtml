@@ -2,15 +2,15 @@
     ViewData["Title"] = "Download Page";
 }
 
-<h1>Download Page</h1>
+<h1>Страница просмотра и загрузки лабораторных работ</h1>
 
 <div class="row">
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Лабораторная 1</h5>
-                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR1.zip" })" class="btn btn-primary">Download Lab 1</a>
-                <button class="btn btn-primary" onclick="previewPDF('@Url.Action("Preview", "Download", new { fileName = "IST-232m_Malkov_TA_LR1.pdf" })')">Preview</button>
+                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR1.zip" })" class="btn btn-primary">Скачать лабораторную 1</a>
+                <a href="/files/IST-232m_Malkov_TA_LR1.pdf" target="_blank" class="btn btn-primary">Посмотреть</a>
             </div>
         </div>
     </div>
@@ -18,8 +18,8 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Лабораторная 2</h5>
-                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR2.zip" })" class="btn btn-primary">Download Lab 2</a>
-                <button class="btn btn-primary" onclick="previewPDF('@Url.Action("Preview", "Download", new { fileName = "IST-232m_Malkov_TA_LR2.pdf" })')">Preview</button>
+                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR2.zip" })" class="btn btn-primary">Скачать лабораторную 2</a>
+                <a href="/files/IST-232m_Malkov_TA_LR2.pdf" target="_blank" class="btn btn-primary">Посмотреть</a>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Лабораторная 3</h5>
-                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR3.zip" })" class="btn btn-primary">Download Lab 3</a>
-                <button class="btn btn-primary" onclick="previewPDF('@Url.Action("Preview", "Download", new { fileName = "IST-232m_Malkov_TA_LR3.pdf" })')">Preview</button>
+                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR3.zip" })" class="btn btn-primary">Скачать лабораторную 3</a>
+                <a href="/files/IST-232m_Malkov_TA_LR3.pdf" target="_blank" class="btn btn-primary">Посмотреть</a>
             </div>
         </div>
     </div>
@@ -36,8 +36,8 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Лабораторная 4</h5>
-                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR4.zip" })" class="btn btn-primary">Download Lab 4</a>
-                <button class="btn btn-primary" onclick="previewPDF('@Url.Action("Preview", "Download", new { fileName = "IST-232m_Malkov_TA_LR4.pdf" })')">Preview</button>
+                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR4.zip" })" class="btn btn-primary">Скачать лабораторную 4</a>
+                <a href="/files/IST-232m_Malkov_TA_LR4.pdf" target="_blank" class="btn btn-primary">Посмотреть</a>
             </div>
         </div>
     </div>
@@ -45,19 +45,12 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Лабораторная 5</h5>
-                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR5.zip" })" class="btn btn-primary">Download Lab 5</a>
-                <button class="btn btn-primary" onclick="previewPDF('@Url.Action("Preview", "Download", new { fileName = "IST-232m_Malkov_TA_LR5.pdf" })')">Preview</button>
+                <a href="@Url.Action("Download", "Download", new { fileName = "IST-232m_Malkov_TA_LR5.zip" })" class="btn btn-primary">Скачать лабораторную 5</a>
+                <a href="/files/IST-232m_Malkov_TA_LR5.pdf" target="_blank" class="btn btn-primary">Посмотреть</a>
             </div>
         </div>
     </div>
     <!-- Остальные карточки для остальных лабораторных работ -->
-</div>
-
-<div class="preview-container" id="previewContainer">
-    <div class="preview-content">
-        <div id="pageViewer" class="pdfViewer"></div>
-    </div>
-    <button class="btn btn-primary close-button" onclick="closePreview()" id="closeButton">Close Preview</button>
 </div>
 
 <style>
@@ -113,64 +106,3 @@
         right: 20px;
     }
 </style>
-
-<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-<script>
-    function previewPDF(url) {
-        var container = document.getElementById("pageViewer");
-
-        // Очищаем предыдущее содержимое превью
-        container.innerHTML = "";
-
-        // Загружаем и отображаем PDF файл
-        var loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(function (pdf) {
-            var pagesPromises = [];
-
-            for (var pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                pagesPromises.push(getPage(pageNum, pdf));
-            }
-
-            Promise.all(pagesPromises)
-                .then(function (pages) {
-                    pages.forEach(function (page) {
-                        container.appendChild(page);
-                    });
-
-                    // Показываем контейнер превью
-                    var previewContainer = document.getElementById("previewContainer");
-                    previewContainer.style.display = "flex";
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
-        });
-    }
-
-    function getPage(pageNum, pdf) {
-        return new Promise(function (resolve, reject) {
-            pdf.getPage(pageNum).then(function (page) {
-                var viewport = page.getViewport({ scale: 1.5 });
-                var canvas = document.createElement("canvas");
-                var context = canvas.getContext("2d");
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                var renderContext = {
-                    canvasContext: context,
-                    viewport: viewport,
-                };
-
-                page.render(renderContext).promise.then(function () {
-                    resolve(canvas);
-                });
-            });
-        });
-    }
-
-    function closePreview() {
-        // Скрываем контейнер превью
-        var previewContainer = document.getElementById("previewContainer");
-        previewContainer.style.display = "none";
-    }
-</script>
